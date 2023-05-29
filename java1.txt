@@ -1,0 +1,36 @@
+#第6课
+1.新建文件，改txt后缀为java后缀 （查看→文件扩展名），用记事本打开文件，写代码后保存，选中文件位置输入cmd＋回车，进入运行界面。
+输入javac <file.java>，产生fileclass文件，计算机可以执行。继续输入java test 回车，执行代码。
+
+#第11课
+1.JDK = JRE + java开发工具 ； JRE = JVM + Java的核心类库
+
+#第14课
+配置环境变量
+1.我的电脑→属性→高级系统设置→环境变量
+2.增加 JAVA_HOME 环境变量，指向jdk安装目录
+3.编辑 path 环境变量，增加 %JAVA_HOME%\bin
+4.打开DOS命令行，任意目录下敲入javac/java。如果出现参数信息，配置成功。
+
+#第17课
+1.文件中有中文时：文件→设置文件编码→GBK→保存→编译（javac <file>）
+2.用 java 运行 class 时，只需要执行名称，不需要+.class
+
+#作业5.24
+输出自己名字：
+public class Name {
+	public static void main(String[]args) {
+		System.out.println("Zhangchi is studying java!");
+	}
+}
+
+运行结果：
+D:\javacode>javac Name.java
+
+D:\javacode>java Name
+Zhangchi is studying java!
+
+
+
+
+
