@@ -1,0 +1,10 @@
+#第19课
+1.Java应用程序的执行入口是main( )的方法，它有固定的书写格式：
+public static void main(String[] args) {…}
+2.Java语言区分大小写
+3.Java由一条条语句构成，每个语句以“;”结束
+4.大括号成对出现
+5.Java源文件以.java为扩展名，源文件的基本组成部分是class，如Hello类
+6.一个源文件最多只有一个public类，其他类个数不限。编译后，每一个类都对应一个.class类
+7.如果源文件包括一个public类，则文件名必须以public类命名
+8.也可以将main方法写在非public类中，然后指定运行非public类
