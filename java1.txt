@@ -16,7 +16,7 @@
 1.文件中有中文时：文件→设置文件编码→GBK→保存→编译（javac <file>）
 2.用 java 运行 class 时，只需要执行名称，不需要+.class
 
-#作业5.24
+#作业5.24日
 输出自己名字：
 public class Name {
 	public static void main(String[]args) {
