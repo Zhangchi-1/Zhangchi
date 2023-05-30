@@ -8,3 +8,42 @@ public static void main(String[] args) {…}
 6.一个源文件最多只有一个public类，其他类个数不限。编译后，每一个类都对应一个.class类
 7.如果源文件包括一个public类，则文件名必须以public类命名
 8.也可以将main方法写在非public类中，然后指定运行非public类
+
+#第21课  Java的转义字符
+1.在控制台输入Tab键，可以实现命令补全
+1)\t  :  一个制表位，实现对齐的功能
+2)\n :  换行符
+3)\\  :  一个\
+4)\"  :  一个"  (中文“”不用转义，英文“”需要转义)
+5)\'  :  一个'
+6)\r  :  一个回车  
+
+课后作业：
+public class Book {
+	public static void main(String[] args) {
+		System.out.println("书名\t作者\t价格\t销量\n三国\t罗贯中\t120\t1000");
+		}
+}
+
+输出结果：
+D:\javacode>javac Book.java
+
+D:\javacode>java Book
+书名    作者    价格    销量
+三国    罗贯中  120     1000
+
+#第22课  常见错误
+1.找不到文件 ：1）文件名输入错误；2）文件不在当前目录下
+2.应在xx文件中声明：主类名和文件名不一致，声明为public的主类应与文件名一致，否则编译失败
+3.语法错误：根据报错去改错，例如：1，l ; 0 o ; 中英文符号
+
+#第23课 注释
+1.单行注释：//单行注释
+2.多行注释： /*  注释... */
+3.文档注释：注释内容可以被Jdk提供的工具javadoc解析，生成一套以网页文件形式体现的该程序的说明文档
+                     /**
+                        *
+                        */
+保存后，命令框输入 javadoc -d 保存路径 -author -version 文件名.java
+
+
