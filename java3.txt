@@ -1,0 +1,89 @@
+#34课  变量
+1.变量是程序的基本组成单位
+
+2.变量的三个基本要素：类型+名称+值
+
+3.使用变量的注意事项：
+ 1）变量表示内存中的一个储存区域，不同变量，类型不同
+2）该区域必须有自己的名称和类型
+3）变量必须先声明后使用
+4）该区域的数据可以在同一类型范围内变化
+5）变量在同一个作用域不能重名
+6）变量=变量名+值+数据类型
+
+4.程序中加号的使用
+1）两边数值，加法运算
+2）两边有一方是字符串，拼接运算
+
+5.整数类型
+1）byte : 1字节
+2）short : 2字节
+3）int : 4字节
+4）long : 8字节
+eg : int n1= 4L 会报错，因为int只能储存4字节，应改为long n1 = 4L
+5）java的整数常量默认为int，声明long型常量须加“l”或“L”
+6）byte是计算机中基本储存单元，1 byte = 8 bit
+
+#第44课  浮点类型
+1.Java的浮点类型也有固定的范围和字段长度 [float是4个字节，double是8个字节]
+2.Java的浮点型常量默认为double类型，声明float常量，后面须加“f”或者“F”
+eg: float num2 = 1.1 报错，因为1.1是八个字节，所以应该改为float num2 = 1.1f
+     但是double num4 = 1.1f是对的，就是把四个字节放进8个字节的空间
+3.科学计数法形式： 5.12e2 [5.12*10的2次方]  5.12E-2  [5.12/10的2次方]
+4.通常情况下使用double, 比float精确
+5.误区：浮点数使用陷阱，2.7和8.1/3；当我们对运算结果是小数的进行相等判断，要小心  
+
+#第46课  Java API文档的使用
+1.API是Java提供的基本编程接口，中文在线文档：https://www.matools.com
+方法1  ： JDK→包→类、接口→方法
+方法2  ： 检索
+
+#第47课 字符类型
+1.字符类型可以表示单个字符，字符类型是char, char是两个字节（可以存放汉字）
+//字符类型可以直接存放一个数字，输出时输出数字表示的字符
+####
+2.sublime的快捷键设置方法：首选项→按键绑定默认→Ctrl+F查找当前快捷键→复制
+→按键绑定用户→粘贴后直接修改快捷键→保存
+
+#第48课 字符细节
+1.字符用单引号引起，用双引号表示字符串
+eg : char = 'a'  ;  char = '张'  ；如果是双引号，则表示字符串，会报错
+2.Java中还允许使用转义字符’\'来将其后的字符转变为特殊字符型常量。
+eg : char = '\n'; '\n'表示换行符
+*******
+3.Java中，char的本质是一个整数，在输出时，是Unicode码对应的字符；要输出对应数字，可以(int) 字符
+4.char 类型是可以进行运算的，相当于一个整数，因为它都有对应的Unicode码
+5.可直接给char赋一个整数，然后输出时，会按照对应的Unicode字符输出
+
+##可以再http://tool.chinaz.com/Tools/Unicode.aspx
+
+####课堂测试
+char c5 = 'b' + 1
+System.out.println((int)c5); //98+1==>99
+System.out.ptintln(c5); //99=>对应的字符=>编码表ASCII（阿斯克码）
+
+###课堂演习代码
+public class CharDetial {
+	 public static void main(String[] args) {
+	 	char c1 = 97;
+	 	System.out.println(c1);
+	 	char c2 = 'a';
+	 	System.out.println((int)c2);
+	 	char c3 = '韩';
+	 	System.out.println((int)c3);
+	 	char c4 = 38889;
+	 	System.out.println(c4);
+	 	System.out.println('a' + 10);
+
+	 }
+}
+
+输出结果：D:\javacode>java CharDetial
+a
+97
+38889
+韩
+107
+
+
+

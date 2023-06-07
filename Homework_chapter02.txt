@@ -1,0 +1,48 @@
+1.
+public class Homework01{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+	}
+}
+
+2.
+public class Homework02 {
+	public static void main(String[] args) {
+		System.out.println("张驰\n女\n黑龙江省哈尔滨市");
+	}
+}
+
+3.
+/*JDK = JRE + java开发工具 ； 
+JRE = JVM + Java的核心类库 ;*/
+
+4.
+/*环境变量path配置及其作用
+1.环境变量的作用是为了在dos的任意目录，使用java 和 javac
+2.先配置JAVA_HOME = 指向jdk安装的主目录
+3.编辑path环境变量，增加%JAVA_HONE%\bin
+
+5.
+/*
+1.编写java的源代码
+2.javac 编译， 得到对应的.class字节码文件
+3.java运行，本质就是把.class加载到jvm运行
+ */
+
+6.
+/*Java编写的7个规范
+1.类，方法的注释，使用javadoc的方式，即文档注释
+2.非javadoc注释，往往是对代码的说明，说明注意事项
+3.用Tab整体向右移，Shift+Tab整体向左移
+4.运算符和 = 的两边给空格
+5.源码文件使用 utf-8 编码
+6.行宽字符不要超过80
+7.代码编程风格两种，行次和行尾*/
+
+7.
+/*Java初学者易犯错误
+1.编译或者运行时，找不到文件，把文件名或路径找对
+2.主类名和文件名不一致，修改使其保持一致
+3.缺少；
+4.拼写错误
+
