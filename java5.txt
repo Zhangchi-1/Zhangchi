@@ -1,0 +1,586 @@
+##第104课 顺序控制
+1.顺序控制
+（1）程序从上到下逐行执行，中间没有任何判断和跳转
+（2）先定义再使用
+
+2.分支控制(if,else,switch)；让程序有选择的执行
+2.1单分支###########################
+2.1.1基本语法：if (条件表达式) {
+              执行代码块；(可以多条语句)
+}
+//条件为真，执行代码块，为假，跳过不执行
+
+2.1.2案例
+import java.util.Scanner;//引入函数
+public class if01 {
+	public static void main(String[] args) {
+    Scanner myScanner = new Scanner(System.in);//引入函数
+    System.out.println("请输入年龄");
+	int age = myScanner.nextInt();//输入的字符串，转换成int类型
+	if (age > 18) {
+		System.out.println("你的年龄大于18，要对自己的行为负责，否则送入监狱");
+	}
+	System.out.println("程序继续");
+	}
+	
+}
+
+2.2双分支##########################
+2.2.1基本语法：
+if (条件表达式) {
+       执行代码块1；
+}
+else {
+       执行代码块2；
+}
+//当条件表达式成立，执行代码块1，否则执行代码块2.
+
+2.2.2案例分析
+import java.util.Scanner;
+public class if02 {
+	public static void main(String[] args) {
+    Scanner myScanner = new Scanner(System.in);
+    System.out.println("请输入年龄");
+	int age = myScanner.nextInt();
+	if (age > 18) {
+		System.out.println("你的年龄大于18，要对自己的行为负责，否则送入监狱");
+	}else {
+		System.out.println("你的年龄不大，这次放过你了");
+	}
+	}
+	
+}
+
+2.3多分支
+2.3.1基本语法：
+if (条件表达式1) {
+       执行代码块1;
+}
+else if (条件表达式2) {
+       执行代码块2；
+}
+……
+else{
+        执行代码块n;
+}
+特别说明：#########
+多分支，可以没有else，如果所有条件都不成立，则一个执行入口都没有
+如果有else，所有条件不成立，执行else语句。
+
+2.3.2案例1
+import java.util.Scanner;
+public class if04 {
+	public static void main(String[] args) {
+	Scanner myScanner = new Scanner(System.in);
+	System.out.println("请输入保国同志的芝麻信用分");
+	int score = myScanner.nextInt();
+	if (score == 100) {
+		System.out.println("信用极好");
+	}else if (score <= 99 && score >80) {
+		System.out.println("信用优秀");
+	}else if (score <= 80 &&  score >= 60) {
+		System.out.println("信用一般");
+	}else System.out.println("不及格");
+	
+	}
+}
+
+2.4嵌套分支
+2.4.1基本语法：(建议 嵌套不要超过三层，可读性不好)
+if () {
+    if () {
+       //if-else…
+    }else{
+       //if-else
+    }
+}
+
+2.4.2案例：Nestedle02.java
+import java.util.Scanner;
+public class Nestedlf02  {
+	public static void main(String[] args) {
+	Scanner myScanner = new Scanner(System.in);
+	System.out.println("请输入月份");
+	int month = myScanner.nextInt();
+	if (month >= 4 && month <= 10) {
+		System.out.println("请输入年龄");
+		int age = myScanner.nextInt();
+		if (age >= 18 && age <= 60) {
+			System.out.println("60");
+		}else if (age < 18) {
+			System.out.println("30");
+		}else System.out.println("20");
+	}else {
+		System.out.println("请输入年龄");
+		int age = myScanner.nextInt();
+		if (age >= 18 && age <= 60) {
+			System.out.println("40");
+		}else System.out.println("20");
+	}
+	}
+}
+
+2.5switch分支结构
+2.5.1基本语法：
+switch (表达式）{
+       case 常量1： //当…
+       语句块1；
+       break; //break代表结束switch,不代表结束程序
+       case 常量2；
+       语句块2；
+       break;
+       …
+       case 常量n;
+       语句块n;
+       break;
+       default:
+       default 语句块;
+       break;
+}
+2.5.2 switch解读
+（1）switch关键字，表示Switch分支
+（2）表达式对应一个值
+（3）case常量1：当表达式的值等于常量1，就执行语句块1
+（4）break:表示退出switch
+（5）表达式不与常量1匹配，继续匹配常量2
+（6）都不匹配。执行default
+
+2.5.3 案例
+import java.util.Scanner;
+public class Switch01 {
+	public static void main(String[] args) {
+	Scanner myScanner = new Scanner(System.in);
+	System.out.println("请输入一个字符（a-g)");
+	char c1 = myScanner.next().charAt(0);
+	switch(c1) {
+		case 'a' :
+		    System.out.println("今天星期一");
+		    break;
+		case 'b' :
+		    System.out.println("今天星期二"); 
+		    break;
+		case 'c' :
+		    System.out.println("今天星期三"); 
+		    break;
+		case 'd' :
+		    System.out.println("今天星期四"); 
+		    break;
+		case 'e' :
+		    System.out.println("今天星期五"); 
+		    break;
+		case 'f' :
+		    System.out.println("今天星期六"); 
+		    break;
+		case 'g' :
+		    System.out.println("今天星期日"); 
+		    break;
+		default:
+		    System.out.println("你输入的字符不正确"); 
+
+	}
+	System.out.println("退出了switch,继续执行");
+	}
+}
+
+2.5.4细节讨论
+（1）表达式数据类型，应和case后的常量类型一致，或者是可以自动转成可以相互比较的类型，
+（2）switch（表达式）中表达式的返回值必须是：(byte short int char enum String)
+（3）case子句中的值必须是常量（‘1’‘a’）或常量表达式（‘a’+1 ），而不能是变量
+（4）default子句是可选的，当没有匹配的case时，执行default
+（5）如果没有default子句，又没有匹配任何常量，则没有输出
+（6）break语句用来执行完一个case分支后，程序跳出switch语句块，没有break，程序会顺序执行到switch结尾
+
+2.5.5switch和if 比较
+（1）判断的具体数值不多，而且符合byte\short\intchar\enum\String六种类型，虽然两个语句都可以使用，建议使用switch
+（2） 对区间判断，对boolean类型判断，用if 
+
+3.循环控制(for while dowhile 多重循环)
+########3.1for 循环控制
+3.1.1基本语法
+for (循环变量初始化;循环条件;循环变量迭代) {
+    循环操作（可以多条语句）;
+}
+
+3.1.2注意事项
+1.循环条件是返回一个布尔值的表达式
+2.for (;循环判断条件;)中的初始化和变量迭代可以写到其他地方，但是两边的分号不能省略
+例子：
+for(int i =1;i<=10;i++) {                       int i =1;
+    System.out.println("你好")    ==>   for (;i<=10;) {
+}                                                                   System.out.println("你好")//想输出i需要这样写
+//i的作用域是for循环里                                i++;
+                                                                }
+###for（;;）无限循环，用ctrl+C 停止循环###
+
+3.1.3案例练习
+public class ForExecrise02 {
+	public static void main(String[] args) {
+	    for (int i = 0; i<=5;i++) {
+		System.out.println(i + "+" + (5-i) + "= 5");
+	    }
+	}
+}
+
+D:\javacode>javac ForExecrise02.java
+
+D:\javacode>java ForExecrise02
+0+5= 5
+1+4= 5
+2+3= 5
+3+2= 5
+4+1= 5
+5+0= 5
+
+#####3.2 while循环
+3.2.1基本语法
+循环变量初始化；
+while(循环条件) {
+     循环体；
+     循环变量迭代；
+}
+//while循环也有四要素，只是四要素和for的位置不一样
+
+3.2.2细节说明
+1.循环条件返回一个布尔值的表达式
+2.while循环先判断再执行语句
+
+3.3.3案例练习
+（1）public class WhileExecrise {
+	public static void main(String[] args) {
+		int n = 1;
+		while(n<=100) {
+			if(n % 3 ==0) {
+				System.out.println(n);
+			}
+			n++;//循环变量迭代要放在if外面，因为无论n能不能被3整除，还要继续判断之后的数字
+		}
+	
+	}
+}
+
+（2）public class WhileExecrise02 {
+	public static void main(String[] args) {
+		int n = 40;
+		while(n<=200) {
+			if (n%2 == 0) {
+				System.out.println("n="+n);
+			}
+			n++;
+		}
+	
+	}
+}
+
+#####3.3 do while循环
+3.3.1基本语法
+循环变量初始化；
+do{
+       循环体；
+       循环变量迭代；
+}while(循环条件);
+
+//1.do while 是关键字
+//2也有循环四要素，只是位置不一样
+//3.先执行再判断，也就是一定至少执行一次
+//4.最后有；
+//5.while 和 do while 
+
+3.3.2案例
+import java.util.Scanner;
+public class DowhileExecrise03 {
+	public static void main(String[] args) {
+	Scanner myScanner = new Scanner(System.in);
+	char answer = ' ';
+	do {
+		System.out.println("我使出五连鞭" );
+        System.out.println("我问还钱吗？y/n?" );
+        answer = myScanner.next().charAt(0);
+        System.out.println("他的回答是：" + answer );
+	}while(answer != 'y');	
+	}
+}
+
+#######3.4 多重循环控制#######（重点）
+3.4.1 介绍
+（1）将一个循环放在另一个循环体内，形成嵌套循环。
+（2）实质上，嵌套循环是把内层循环当成外层循环的循环体
+（3）设外层循环次数为m次，内层为n次，则内层循环实际上执行m*n。
+
+3.4.2 案例分析 
+（1）打印金字塔
+public class Stars {
+	public static void main(String[] args) {
+	int total = 20;
+	for(int i = 1; i<=total ; i++) {
+		for(int k = 1; k <= total-i; k++) {
+            System.out.print(" ");
+		}
+		for(int j = 1; j <= 2*i-1; j++) {
+            if(j == 1 || j == 2*i-1 || i==total) {
+            	 System.out.print("*" );
+            }else {
+            	 System.out.print(" ");
+            }
+            
+		}
+		System.out.println("" );
+	}
+	}
+}
+
+和99乘法表思路差不多
+
+4.break 跳转控制语句
+ ###随机生成语句：System.out.println((int)(Math.random()*100) + 1);
+
+4.1break语句的基本语法
+（1）break语句用于终止某个语句块的执行，一般用在switch 或者循环
+（2）基本语法
+{   ……
+    break
+}   ……
+
+4.2案例
+public class Break01 {
+	public static void main(String[] args) {
+	    for(int i = 0; i<=10; i++){
+		    if(i == 3) {
+		    	break;
+		    }
+		    System.out.println("i=" + i);
+		    
+	    }
+	}
+}
+//退出for循环，继续执行后面的代码
+
+4.3break的细节
+（1）break语句在出现多层嵌套的语句块中时，可以通过标签指明要终止的是哪一层语句块
+（2）标签的基本使用
+label1:{ ……
+label2:    { ……
+abc:             { ……
+
+解读：
+（1）break语句可以指定退出哪层
+（2）label1是标签，由程序员决定名字
+（3）break指定到哪个标签，就退出到哪里
+（4）实际开发不要用标签
+（5）如果没有固定break，默认退出最近的循环体
+
+4.3.1标签案例
+（1）public class Break01 {
+	public static void main(String[] args) {
+	    abc1:
+	    for(int j = 0; j <4; j++) {
+	    abc2:	
+	    	for(int i = 0; i<=10; i++){
+		        if(i == 3) {
+		    	    break;//等价于break abc2；
+                                                       break abc1; 只输出一组i=0 i=1 i=2 直接结束外层for循环
+		        }
+		        System.out.println("i=" + i);
+		    }
+	    }
+		    
+	}
+}
+
+（2）输入用户名和密码  （输入内容为字符串时的处理方式：先定义字符串，再用String = myScanner.next(）)
+import java.util.Scanner;
+public class BreakExecrise02 {
+	public static void main(String[] args) {
+		Scanner myScanner = new Scanner(System.in);//定义myScanner
+            String name = "";
+            String passwd = "";
+            int chance = 3;
+            for(int i = 1; i <= 3 ; i++) {
+			System.out.println("请输入用户名");//输入后的内容，由name承接
+			name = myScanner.next();
+                  System.out.println("请输入密码");//继续输入的内容，由passwd承接
+                  passwd = myScanner.next();
+ ########//字符串类的比较，使用方法equals#####################################
+                  //name equals("林黛玉") == ("林黛玉").equals(name)
+                  if (name.equals("丁真") && passwd.equals("666") ) {
+            	    System.out.println("登录成功");
+            	    break;
+                  }
+                  System.out.println("您还有" + (3-i) + "次机会");
+		}
+
+	}
+}
+
+5.contine  跳转控制语句
+####5.1基本介绍
+（1）contine 语句用于结束本次循环，继续执行下一次循环
+（2）contine 语句出现在多层嵌套的循环语句体中时，可以通过标签指明跳到哪层循环、
+（3）基本语法
+{   ……
+    contine;
+}   ……
+
+######5.2 案例分析
+public class Continue01 {
+	public static void main(String[] args) {
+		int i = 1;
+		while( i <=4 ) {
+			i++;// i = 2
+			if (i == 2) {
+				continue;//结束本次循环，继续循环；
+			}
+			System.out.println("i=" + i);// i = 3 ;i = 4; i = 5;
+		}
+	}
+}
+
+######5.3 continue细节案例分析
+continue的标签使用方法，见微信文件传输助手
+
+6.return 跳转控制语句
+#####6.1 介绍
+（1）return使用在方法，表示跳出所在的方法。如果使用main，表示退出程序
+
+#####6.2 案例分析###################################
+public class Return01 {
+	public static void main(String[] args) {
+		for (int = 1; i <= 5; i++) {
+			if ( i == 3 ) {
+				System.out.println("我爱世界" + i);
+				//break;//Hello*2;我爱世界*1；go on*1
+				//continue;Hello*2;我爱世界*1；Hello*2; go on*1;
+				return;//Hello*2;我爱世界*1;//直接跳出所在方法，没机会输出go on
+			}
+			System.out.println("Hello World!");
+
+		}
+		System.out.println("go on ..");
+	}
+}
+
+Homework——chapter04
+（1）
+public class Homework01 {
+	public static void main(String[] args) {
+		double cash = 100000;
+		int time = 0;
+		while(true) {
+			if (cash > 50000) {
+				cash = cash * 0.95;
+				time++;
+			}
+			else if (cash >= 1000) {
+				cash = cash - 1000;
+				time++;
+			}else {
+				break;
+			}
+		}
+		System.out.println("该人可以经过路口" + time + "次");
+	}
+}
+
+（2）
+import java.util.Scanner;
+public class Homework02 {
+	public static void main(String[] args) {
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("请输入一个整数");
+		int a = myScanner.nextInt();
+		if(a > 0) {
+			System.out.println("该数大于0");
+		}
+		else if (a < 0) {
+			System.out.println("该数小于0");
+		}else {
+			System.out.println("该数等于0");
+		}
+
+	}
+}
+
+（4）判断一个数是否为水仙花数#########一个数字各个位置的切片
+public class Homework03 {
+	public static void main(String[] args) {
+		int a = 153;
+		int n1 = a / 100;
+		int n2 = a % 100 / 10;
+		int n3 = a % 10;
+		if (a == n1*n1*n1 + n2*n2*n2 + n3*n3*n3) {
+			System.out.println("是水仙花数");
+		}
+	}
+}
+//n 的百位 ：n / 100
+//n的十位： n % 100 /10
+//n的个位 ： n % 10
+
+（6）
+public class Homework06 {
+	public static void main(String[] args) {
+		int j = 0;
+		for(int i = 1; i <= 100;i++) {
+			if (i % 5 != 0) {
+				j++;
+				System.out.print(i + " ");
+				if (j % 5 == 0) {
+					System.out.println('\n');
+				}
+		    }
+
+        }
+			
+		
+	}
+}
+
+（7）输出小写a-z;大写Z-A ##########利用ASCII码
+public class Homework07 {
+	public static void main(String[] args) {
+		for(char c1 = 'a'; c1 <= 'z'; c1++) {
+			System.out.print(c1 + " ");
+		}
+		System.out.println('\n');
+		for (char c2 = 'Z'; c2 >= 'A'; c2--) {
+			System.out.print(c2 + " ");
+		}
+	}
+}
+
+（8）
+public class Homework08 {
+	public static void main(String[] args) {
+		double sum = 1;
+		for (double i = 2; i <= 100; i++) {
+			if (i % 2 ==0) {
+				sum = sum - (1.0/i);
+			}else {
+				sum = sum + (1.0/i);
+			}
+
+		}
+		System.out.println(sum);
+	}
+}
+
+（9）
+public class Homework09 {
+	public static void main(String[] args) {
+		int sum = 0;
+		for (int i = 1; i <=100; i++) {
+			for (int j = 1; j <= i; j++) {
+				sum = sum + j;
+			}
+		}
+		System.out.println(sum);
+	}
+}
+
+
+
+
+
+
+
+
+
