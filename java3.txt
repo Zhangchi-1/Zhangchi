@@ -85,5 +85,246 @@ a
 韩
 107
 
+##第49课 字符类型
+1.字符型储存到计算机中，需要将字符对应的码值找出来，比如“a”
+储存：'a'==>码值97==>二进制（110 0001）==>储存
+读取：二进制（110 0001）==>97==>‘a’==>显示
 
+2.字符和码值的对应关系是通过字符编码表决定的
+##编码表
+（1）ACSII编码表，一个字节表示，一共128个字符，实际上一个字节可以表示256个字符，但只用了128个
+（2）Unicode编码表，固定大小的编码，使用两个字节来表示字符，字母和汉字都是统一占用两个字节
+（3）utf-8编码表，大小可变的编码，字母使用一个字节，汉字使用3个字节
+（4）gbk编码；可以表示汉字，范围广，字母1字节，汉字2字节
+（5）gb2312；可以表示汉字。gb2312<gbk
+（6）big5码；繁体中文
+
+##第50课
+1.ASCII表，缺点：不能表示所有字符
+2.Unicode，使用没有乱码问题，但浪费储存空间
+3.Unicode编码0-127的字符与ASCII一样，##因此Unicode码兼容ASCII码##
+4.utf-8;可以用1-6个字符表示一个符号，不同符号字节长度不同。英1汉3
+5.
+
+##第51课  布尔类型
+1.布尔类型只允许取值true和false，无null
+2.占一个字节
+3.适用于逻辑运算，一般用于程序流程控制
+例子：
+public class Boolean01 {
+	public static void main(String[] args) {
+		boolean isPass = true;
+		if(isPass == true) {
+			System.out.println("考试通过，恭喜");
+		} else {
+			System.out.println("考试没有通过，下次努力");
+		}
+		
+	}
+运行结果：
+D:\javacode>javac Boolean01.java
+
+D:\javacode>java Boolean01
+考试通过，恭喜
+
+##第52课##基本数据类型转换
+1.当java程序进行赋值或者运算时，精度小的类型制动转换为精度大的数据类型，这个就是自动类型转换
+char=>int=>long=>float=>double
+byte=>short=>int=>long=>float=>double
+####第1、2条线，byte和char不能自动类型转换####
+
+例子：
+public class AutoConvert {
+	public static void main(String[] args) {
+		int num = 'a';
+		double d1 = 80;
+		System.out.println(num);
+		System.out.println(d1);
+	}
+}
+输出结果：
+D:\javacode>javac AutoConvert.java
+
+D:\javacode>java AutoConvert
+97
+80.0
+###因为double比int精度高，因此int直接转换成double类型，然后输出
+
+##第53\54\55课  基本数据类型转换
+一、注意细节
+1.细节1；多种类型数据混合运算时，系统首先将所有数据转换成容量最大的数据类型，然后再进行计算
+
+2. 细节2; byte b1 = 10; //对，因为byte范围-128-127,10在byte范围内，所以可以
+  int n2 = 1;
+  byte b2 = n2; //错，因为n2是int类型，占了四个字节，不能转换成byte低精度的类型
+####字面量赋值给变量，判断表达范围；变量赋值给变量，要先判断数据类型####
+
+3.细节3；byte\short\char之间不会自动转换
+例子：
+byte b1 = 10;
+char c1 = b1; //错，因为byte不能自动转换成char
+
+4.细节4; byte\short\char三者可以计算，在计算时先转换成char
+例子：
+byte b2 =1;
+short s1 =1;
+short s2 =b2+s1;//错，b2+s1=>int
+####编译器的规则，需要记忆
+
+5.boolean不参与转换
+boolean pass =true；
+int num2 = pass; // boolean不参与类型的自动转换
+
+6.自动提升原则；表达式结果的类型自动提升为操作数中最大的类型
+byte b4 =1;
+short s3 =100;
+int num200 = 1;
+double num300 =1.1;
+double num500 = b4+s3+num200+num300; //转换成精度最大的double
+
+二、强制类型转换
+1.自动类型转换的逆过程，将容量大的数据类型转换为容量小的数据类型，需要加上强制转换符()，但可能造成精度降低或溢出，所以要格外注意
+例子1：
+public class ForceConvert {
+	public static void main(String[] args) {
+		int n1 = (int)1.9;
+		System.out.println("n1=" + n1);
+	}
+}
+运算结果：
+D:\javacode>javac ForceConvert.java
+
+D:\javacode>java ForceConvert
+n1 = 1 //造成精度损失
+
+例子2：
+public class ForceConvert {
+	public static void main(String[] args) {
+		int n2 =2000;
+		byte b1 = (byte)n2;
+		System.out.println("b1=" + b1);
+	}
+}
+
+运算结果：
+D:\javacode>javac ForceConvert.java
+
+D:\javacode>java ForceConvert
+b1=-48 //造成数据溢出
+
+三、强制类型转换细节说明
+1. 强制转符号只针对于最近的操作数有效，往往会使用小括号提升优先级
+例子：public class ForceConvertDetial {
+	public static void main(String[] args) {
+		int x = (int)10*3.5+6*1.5; //10是int类型，*3.5后还是double类型
+		System.out.println(x)
+	}
+}
+改：int x = (int)(10*3.5+6*1.5);//44
+
+2.数据的大小从大=>小，就需要使用到强制转换
+
+3.char类型可以保存int的常量值，但不能保存int的变量值，需要强转；
+char c1 = 100;//ok
+int m = 100;
+char c2 = m;// 错误
+char c3  =(char)m;//ok
+
+##第57课 基本数据类型和String类型（字符串类型）的转换
+1.基本类型转String类型，基本数据类型的值+“”即可
+例子：
+		int n1 = 100;
+		float f1 = 1.1f;
+		double d1 = 4.5;
+		String s1 = n1 + "";
+		String s2 = f1 + "";
+		String s3 = d1 + "";
+		System.out.println(s1 + " " + s2 + " " + s3 + " ");
+输出：D:\javacode>javac StringToBasic.java
+
+D:\javacode>java StringToBasic
+100 1.1 4.5
+
+2.String转基本，通过基本类型的包装类调用parseXX即可
+例子：String s5 = "123";
+		int num1 = Integer.parseInt(s5);
+		double num2 = Double.parseDouble(s5);
+		float num3 = Float.parseFloat(s5);
+		long num4 = Long.parseLong(s5);
+		byte num5 = Byte.parseByte(s5);
+		boolean b = Boolean.parseBoolean("true");
+		short num6 = Short.parseShort(s5);
+
+		System.out.println(num1);//123
+		System.out.println(num2);123.0
+		System.out.println(num3);//123.0
+		System.out.println(num4);//123
+		System.out.println(num5);//123
+		System.out.println(b);//true
+		System.out.println(num6);//123
+
+3.把字符串转成char ==>把字符串的第一个字符得到
+例子：System.out.println(s5.charAt(0));
+
+4.注意事项：
+（1）STring转基本，要保证STring有效转换，如hello就不能转成整数
+
+#############################
+#############################
+chapter 3 Homework
+
+2. public class Homework02 {
+	public static void main(String[] args) {
+		char c1 = '\n';
+		char c2 = '\t';
+		char c3 = '\r';
+		char c4 = '\\';
+		char c5 = '1';
+		char c6 = '2';
+		char c7 = '3';
+		System.out.println(c1);
+		System.out.println(c2);
+		System.out.println(c3);
+		System.out.println(c4);
+		System.out.println(c5);
+		System.out.println(c6);
+		System.out.println(c7);
+
+	}
+}
+
+3.public class Homework03 {
+	public static void main(String[] args) {
+		String book1 = "天龙八部";
+		String book2 = "笑傲江湖";
+		System.out.println(book1 + book2);//天龙八部笑傲江湖
+		char c1 = '男';
+		char c2 = '女';
+		System.out.println(c1 + c2 );//男女码值相加
+		double price1 = 123.56;
+		double price2 = 789.10;
+		System.out.println(price1 + price2);//123.56+789.10
+		
+	}
+}
+
+4.public class Homework04 {
+	public static void main(String[] args) {
+		String name = "jack";
+		int age = 20;
+		double score = 80.9;
+		char gender = '男';
+		String hobby = "打篮球";
+		System.out.println("姓名\t年龄\t成绩\t性别\t爱好\n" + 
+			name + '\t' + age + '\t' + score  + '\t' + gender + '\t' +hobby);
+		
+		
+	}
+}
+输出：
+D:\javacode>javac Homework04.java
+
+D:\javacode>java Homework04
+姓名    年龄    成绩    性别    爱好
+jack    20      80.9    男      打篮球
 
