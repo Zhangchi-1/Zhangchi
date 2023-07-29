@@ -1,0 +1,1243 @@
+######## 7.1 类与对象
+#####7.1.1 介绍
+int ：Java提供的数据类型
+猫类 Cat：自定义的数据类型
+把猫的特性提取出来==>猫类：属性/行为==>对象1（实例）/对象2（实例）
+
+案例：
+public class Object01 {
+	public static void main(String[] args) {
+		Cat cat1 = new Cat();
+		cat1.name = "小白";
+		cat1.age = 3;
+		cat1.color = "白色";
+
+		Cat cat2 = new Cat();
+		cat2.name = "小花";
+		cat2.age = 100;
+		cat2.color = "花色";
+
+		System.out.print("第一只猫的信息" + cat1.name + " " +
+			cat1.age + " " + cat1.color + " ");
+
+		System.out.print("第二只猫的信息" + cat2.name + " " +
+			cat2.age + " " + cat2.color + " ");
+
+	}
+}
+
+class Cat {
+	String name;
+	int age;
+	String color;
+}
+
+######7.1.2  属性/成员变量
+（1）成员变量 = 属性 =field（字段）
+成员变量是用来表示属性的，统一叫属性。
+Car（name,price,color//属性、成员变量、字段）; 
+STring [] master ；//属性一般是基本数据类型，也可以是引用类型（对象、数组）
+
+#####7.1.3 属性细节
+（1）属性的定义语法同变量；实例：访问修饰符 属性类型 属性名
+访问修饰符：public \proctected\ 默认\ private;
+
+（2）属性的定义类型可以为任意类型，包含基本类型或引用类型
+
+（3）属性如果不赋值，有默认值，规则和数组一致
+案例：
+public class Object02 {
+	public static void main(String[] args) {
+		Person p1 = new Person();
+
+		System.out.println("age= " + p1.age + "name = " +
+			p1.name + "sal= " + p1.sal + "isPass= " + p1.isPass);
+	}
+}
+
+class Person {
+	int age;
+	String name;
+	double sal;
+	boolean isPass;
+}
+
+输出内容：
+D:\javacode>java Object02
+age= 0 name = nul sal= 0.0 isPass= false 
+
+#####7.1.4 如何创建对象
+（1）先声明再创建
+Cat cat; //声明对象cat
+cat = new Cat( ); //创建
+
+（2）直接创建
+Cat cat =new Cat( );
+
+#######7.1.5 类与对象的内存分配机制
+见微信文件传输助手==>和数组一样，相等是指向地址。
+
+######7.1.6 类与对象小结
+（1）栈：一般存放基本数据类型；（局部变量）
+（2）堆：存放对象（Cat cat ,数组等）
+（3）方法区：常量池（常量，字符串）
+（4）示意图：[Cat (name, age, price)]
+创建对象流程见微信
+
+#####7.1.7 练习
+Person a = new Person();
+a.age = 10;
+a.name = "小明”;
+Person b;
+b =a ;
+System.out.println(b.name);//小明
+b.age = 200;
+b = null;//代表栈b指向堆的箭头断掉，详情见微信，类与对象练习题，b=null
+System.out.println(a.age);//200
+System.out.println(b.age);//异常
+
+#######7.2 成员方法
+#######7.2.1 成员方法的基本介绍  从代码中体现
+（1）
+public class Method01 {
+	public static void main(String[] args) {
+		//方法使用
+		//1.方法写好后，如果不去调用，不会输出
+		//2.先创建对象，然后调用方法即可
+		Person p1 = new Person();
+		p1.speak();//调用方法
+		p1.cal01();
+		p1.cal02(23);//调用cal02,同时给n赋值为5
+		
+		//调用getSum,同时给num1 2 赋值；
+		//把方法 getSum 返回的值，赋给变量 returnRes
+		int returnRes = p1.getSum(10, 20);
+		System.out.println("getSum方法返回的值=" + returnRes);
+	}
+}
+
+class Person {
+	String name;
+	int age;
+	//方法(成员方法)
+	//添加speak成员方法，输出“我是一个好人”
+	//解读如下：
+	//1.public 表示方法是公开的
+	//2.void 表示方法没有返回值
+	//3.speak() :speak是方法名，()形参列表
+	//4. {} 方法体，可以写我们要执行的代码
+	public void speak() {
+		System.out.println("我是一个好人");
+	}
+
+	public void cal01() {
+		//循环完成
+		int sum = 0;
+		for (int i = 1; i <=1000; i++) {
+			sum = sum + i;
+		}
+		System.out.println(sum);
+	}
+
+	//(int n) 形参列表， 表示当前有一个形参n，可以接收用户输入
+
+	public void cal02(int n) {
+		int sum1 = 0;
+		for (int j = 1; j <= n; j++) {
+			sum1 = sum1 +j;
+		}
+		System.out.println(sum1);
+	}
+
+    //添加getSum,可以计算两个数的和
+    //1.int : 表示方法执行后，返回一个int值
+    //2.getSum 方法名
+    //3.(int num1, int num2) 形参列表，2个形参，可以接收用户传入的两个数
+    //4.return res 表示把res的值，返回
+	public int getSum(int num1, int num2) {
+		int res = num1 + num2;
+		return res;
+	}
+}
+
+（2）方法的调用机制原理：见微信，成员方法的调用机制
+
+########7.2.2 用成员方法遍历数组
+（1）public class Method02 {
+	public static void main(String[] args) {
+		int map [][] = {{0,0,1},{1,1,1},{1,1,3}};
+		MyTools tool = new MyTools();
+		tool.printArr(map);
+
+	}
+}
+class MyTools {
+	public void printArr (int[][] map) {
+		for(int i = 0; i < map.length; i++) {
+			for(int j =0; j <map[i].length; j++) {
+				System.out.print(map[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+	}
+}
+
+（2）好处：
+1.提高了代码的复用性
+2.可以将代码封装起来，然后供其他用户调用即可。
+
+######7.2.3 成员方法的定义
+（1）public 返回数据类型 方法名（形参列表…） {
+            方法体语句；
+            return 返回值；
+}
+
+1.形参列表：cal(int n)/getSum(int num1,int num2)
+2.返回数据类型：表示从成员方法输出void没有返回值
+3.方法主体
+4.return语句；不是必须的
+5.结合前面示意图理解
+
+#######7.2.4 成员方法使用细节
+（1）访问修饰符，不写默认访问
+（2）返回数据类型
+1.一个方法最多有一个返回值（返回多个数值：返回数字）
+public class Method02 {
+	public static void main(String[] args) {
+		int map [][] = {{0,0,1},{1,1,1},{1,1,3}};
+		MyTools tool = new MyTools();
+		tool.printArr(map);
+
+	}
+}
+class MyTools {
+	public void printArr (int[][] map) {
+		for(int i = 0; i < map.length; i++) {
+			for(int j =0; j <map[i].length; j++) {
+				System.out.print(map[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+	}
+}
+
+2.返回类型可以为任意类型，包括基本类型和引用类型（数组）
+
+3.如果方法要求有返回数据类型，则方法体中最后的执行语句必须是return，且
+要求返回值类型必须和return的值一致或兼容
+
+4.如果方法名是void，则方法体中可以没有return语句，或者只写return;
+
+（3）参数列表方面细节
+1.一个方法可以有0或多个参数 ，getSum（int n1, int n2);
+2.参数类型：基本或引用；printArr(int [] [] map)
+3.调用带参数的方法时，一定对应着参数列表传入相同或兼容的类型
+4.方法不能嵌套定义
+5.调用参数类型、顺序、个数都要一致
+
+（4）调用方法的细节说明
+1.同一个类的方法调用，直接调用即可，比如print(参数）；
+案例：
+public class MethodDetial02 {
+	public static void main(String[] args) {
+		A a = new A();
+		a.sayOK();// 会直接指向 sayOK ,从 sayOK 指向 print 并执行，执行print 后，继续执行sayOK后面的语句
+	}
+}
+class A {
+	public void print(int n) {
+		System.out.println("print()方法被调用n =" + n);
+	}
+	public void sayOK() {
+		print(10);
+		System.out.println("继续执行sayOK");
+	}
+}
+
+2.跨类中的方法A类调用B类方法，需要通过对象名调用
+public class MethodDetial02 {
+	public static void main(String[] args) {
+		A a = new A();
+                                  a.m1(); //执行A类中的m1
+	}
+}
+class A {
+public void m1() {
+		System.out.println("m1方法被调用");
+		B b = new B();
+		b.hi();//执行B类中的hi();
+		System.out.println("m1()继续执行");
+	}
+}
+
+class B {
+	public void hi() {
+		System.out.println("B类中的hi()被执行"); //执行后，继续返回A 类中的m1
+	}
+}
+
+#######7.2.5 成员方法的练习
+（1）
+public class MethodExecrise01 {
+	public static void main(String[] args) {
+		AA aa = new AA();
+		if (aa.court(49)) {
+			System.out.println("是偶数");
+		}
+		else {
+			System.out.println("是奇数");
+		}
+	}
+}
+
+class AA {
+	public boolean court(int n) {
+		return n % 2 == 0;  //成员方法中是布尔类型
+	}
+}
+
+（2）
+public class MethodExecrise02 {
+	public static void main(String[] args) {
+		AA a = new AA();
+		a.print(10,10,'%');	
+	}
+}
+class AA {
+	public void print(int row, int col, char c) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				System.out.print(c);
+			}
+			System.out.println();
+		}
+	}
+}
+
+######7.2.6成员方法的传参机制
+（1）
+public class MethodParameter01 {
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 20;
+		AA obj = new AA();
+		obj.swap(a,b);
+		System.out.println("a=" + a + "b=" + b);//a=10.b=20
+
+	}
+}
+
+class AA {
+	public void swap(int a,int b) {
+		System.out.println("a和b交换前的值a=" + a + "b=" + b);//a=10,b=20
+		int tmp = a;
+		a = b;
+		b = tmp;
+		System.out.println("a和b交换后的值a=" + a + "\t" + "b=" + b);//a=20,b=10
+	}
+}
+
+（2）##对于基本数据类型，传递的是值，形参的任何改变不影响实参####
+
+（3）
+public class MethodParameter02 {
+	public static void main(String[] args) {
+		B b = new B();
+		int [] arr = {1,2,3};
+		b.test100(arr);
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");//200,2,3
+		}
+		System.out.println();
+	}
+}
+class B {
+	public void test100(int[] arr) {
+		arr[0] = 200;
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");//200,2,3
+		}
+		System.out.println();
+	}
+}
+
+（4）
+public class MethodParameter02 {
+	public static void main(String[] args) {
+		B b = new B();
+		Person p = new Person();
+		p.name = "jack";
+		p.age = 10;
+		b.test200(p);
+		System.out.println("main 的 p.age=" + p.age);
+	}
+}
+class Person {
+	String name;
+	int age;
+}
+class B {
+	public void test200(Person p) {
+		p.age = 10000;
+
+	}
+}
+
+（5）方法接受一个person对象，在方法中修改对象属性，原对象是否变化？会变化
+（6）
+public class MethodParameter02 {
+	public static void main(String[] args) {
+		B b = new B();
+		Person p = new Person();
+		p.name = "jack";
+		p.age = 10;
+		b.test200(p);
+		System.out.println("main 的 p.age=" + p.age);//10;
+	}
+}
+class Person {
+	String name;
+	int age;
+}
+class B {
+	public void test200(Person p) {
+		p = new Person();
+		p.name = "tom";
+		p.age = 99;
+	}
+}
+
+（7）编写一个copyPerson，可以渎职一个Person对象，返回复制的对象，克隆对象，注意要求得到新对象和原来的对象是两个独立的对象，只是他们属性相同
+public class MethodExecrise03 {
+	public static void main(String[] args) {
+		Person p = new Person();
+		p.name = "milan";
+		p.age = 100;
+		Mytools tools = new Mytools();
+		Person p2 = tools.copyPerson(p);
+		//到此，p 和 p2 是Person 对象，但是是两个独立的对象，属性相同
+		System.out.println("p的属性 age =" + p.age + "名字=" + p.name);
+		System.out.println("p2的属性 age =" + p2.age + "名字=" + p2.name);
+		//可以判断p 和 p2 是否为同一个对象
+		System.out.println(p == p2);
+	}
+}
+class Person {
+	String name;
+	int age;
+}
+class Mytools {
+	public Person copyPerson(Person p) { //返回类型是引用类型Person
+		Person p2 = new Person();
+		p2.name = p.name;
+		p2.age = p.age;
+		return p2;
+	}
+}
+内存图见微信，关键字：克隆成员方法
+
+######7.3 递归 （先递后归）
+######7.3.1 基本介绍
+（1）递归就是自己调用自己，每次调用时传入不同的变量，递归有助于编程者解决复杂问题。同时让代码变得简洁
+（2）递归解决什么问题？
+各种数学问题，汉诺塔，阶乘问题等等
+（3）举例说明：
+public class Recursion01 {
+	public static void main(String[] args) {
+		T t1 = new T();
+		t1.test(4);
+	}
+}
+
+class T {
+	public void test(int n) {
+		if (n > 2) {
+			test(n-1);
+		}
+		System.out.println("n=" + n);
+		//n = 2, n = 3, n = 4;
+	}
+}
+//每一个栈都要完整的执行，内存图见微信，关键字，递归内存图
+
+（4）递归阶乘举例
+public class Recursion02 {
+	public static void main(String[] args) {
+		T t1 = new T();
+		int res = t1.factorial(5);
+		System.out.println("res=" + res);
+		// res = 120;
+	}
+}
+class T {
+	public int factorial(int n) {
+		if (n == 1) {
+			return 1;
+		}else {
+			return factorial(n-1) * n;
+		}
+	}
+}
+//内存分析图见微信，关键词，递归阶乘
+
+######7.3.2 方法递归调用重要原则
+（1）执行一个方法，就创建一个新的受保护的独立空间（栈空间）
+（2）方法的局部变量是独立的，不相互影响
+（3）如果方法中是引用类型（数组），就会共享该引用类型的数据
+（4）递归必须向退出递归的条件逼近，否则就是无限递归
+（5）当一个方法执行完毕，或遇到return，就会返回，遵守谁调用，
+就把结果返回谁，同时当方法递归完毕或返回时，该方法也就执行完毕。
+
+案例分析：
+（1）用递归求斐波那契数
+public class RecursionExecrise01 {
+	public static void main(String[] args) {
+		F f = new F();
+		System.out.println("当n =9对应的斐波拉契数= " + f.fei(9));
+	}
+}
+class F {
+	public int fei(int n) {
+		if(n ==1 || n ==2) {
+			return 1;
+		}else {
+			return fei(n-1) + fei(n-2);
+		}
+	}
+}
+
+（2）猴子吃桃
+public class RecursionExecrise02 {
+	public static void main(String[] args) {
+		T t = new T();
+		int day = 9;
+		int taoziNum = t.taozi(day);
+		if (taoziNum != -1) {
+			System.out.println("第" + day + "天有"+ t.taozi(day) +"个桃子");
+		}
+	}
+}
+class T {
+	public int taozi(int day) {
+		if (day == 10) {
+			return 1;
+		}else if ( day >=1 && day <= 9) {
+			return((taozi(day + 1) + 1)*2);
+		}else {
+			System.out.println("day在1-10之间");
+			return -1;
+		}
+	}
+}
+
+（3）老鼠找迷宫
+public class MiGong {
+	public static void main(String[] args) {
+		//创建8行7列的迷宫
+		//规定map数组元素为0 可以走，元素为1 障碍物
+		int [][] map = new int [8][7];
+		for (int i = 0; i < 7; i++) {
+			map[0][i] = 1;
+			map[7][i] = 1;
+		}
+		for (int i = 0; i < 8; i++) {
+			map[i][0] = 1;
+			map[i][6] = 1;
+		}
+		map[3][1] = 1;
+		map[3][2] = 1;
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				System.out.print(map[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+		T t1 = new T();
+		t1.findway(map,1 ,1);
+		System.out.println("找路的情况如下");
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				System.out.print(map[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+}
+
+class T {
+	//使用递归回溯的思想来解决老鼠出迷宫
+	//1.findway 方法就是专门来找出迷宫的路径
+	//2.如果找到，就返回true，否则返回false
+	//3.map是二维数组。即表示迷宫
+	//4.i,i是老鼠的位置，初始化位置（1,1）
+	//5.递归找路，规定map数组各个值的含义
+	//0表示可以走；1表示障碍物；2表示走过可以走；3表示走过走不通
+	//6.当map[6][5] = 2，说明找到通路可以结束，否则继续找
+	//7.老鼠找路策略，下>右>上>左
+	public boolean findway(int [][] map,int i, int j) {
+		if(map[6][5] == 2) {
+			return true;
+		}else {
+			if (map[i][j] == 0) {
+                map[i][j] = 2;
+                if (findway(map, i+1 , j)) {
+                	return true;
+                }else if (findway(map, i ,j+1)) {
+                	return true;
+                }else if (findway(map, i-1 ,j)) {
+                	return true;
+                }else if (findway(map, i ,j-1)) {
+                	return true;
+                }else {
+                	map[i][j] = 3;
+                	return false;
+                }
+            }else {
+            	return false;
+            }
+			
+		}
+	}
+}
+
+######7.4 方法重载（Overload）
+######7.4.1 基本介绍
+java中允许同一个类中，对个同名方法的存在，但要求形参列表不一致
+比如：System.out.println(); out是PrintStream类型
+好处：减轻了起名、记名的麻烦
+（1）快速入门案例
+public class OverLoad {
+	public static void main(String[] args) {
+		MyCalculator mc = new MyCalculator();
+        System.out.println(mc.calculate(1,5,1));
+	}
+}
+
+class MyCalculator {
+    //下面的四个calculate方法构成了重载
+	public int calculate(int n1, int n2) {//(int a1, int a2) 不是重载，是方法名重复
+		return n1 + n2;
+	}
+
+	public double calculate(int n1, double n2) {
+		return n1 + n2;
+	}
+
+	public double calculate(double n1, int n2) {
+		return n1 + n2;
+	}
+
+	public int calculate(int n1, int n2, int n3) {
+		return n1 + n2 + n3;
+	}
+
+}
+
+
+#######7.4.2 方法重载的细节
+（1）方法名一定相同
+（2）形参列表必须不同（形参类型、个数、顺序至少有一个不一样）
+（3）返回类型：无要求
+
+#####7.4.3 方法重载练习题
+（1）
+public class OverLoadExecrise01 {
+	public static void main(String[] args) {
+		Methods m1 = new Methods();
+		System.out.println(m1.m("women"));
+	}
+}
+
+class Methods {
+	public int m(int n1) {
+		return n1*n1;
+	}
+
+	public int m(int n1, int n2) {
+		return n1*n2;
+	}
+
+	public String m(String n1) {
+		return n1;
+	}
+}
+
+（2）
+public class OverLoadExecrise01 {
+	public static void main(String[] args) {
+		Methods m1 = new Methods();
+		System.out.println(m1.max(2.5,8.2,10.4));
+	}
+}
+
+class Methods {
+	public int max(int n1, int n2) {
+		if (n1 > n2) {
+			return n1;
+		}else {
+			return n2;
+		}
+	}
+
+	public double max(double n1, double n2) {
+		if (n1 > n2) {
+			return n1;
+		}else {
+			return n2;
+		}
+	}
+
+	public double max(double n1, double n2, double n3) {
+		if (n1 > n2) {
+			if (n1 > n3) {
+				return n1;
+			}else {
+				return n3;
+			}
+		}else if (n2 > n3) {
+			return n2;
+		}else {
+			return n3;
+		}
+	}
+}
+
+#######7.5 可变参数
+######7.5.1 基本介绍
+（1）Java允许将同一类中多个同名，同功能，但参数个数不同的方法，封装成一个方法
+就可以通过可变参数实现
+（2）基本语法
+访问修饰符 返回类型 方法名（数据类型…形参名）{
+}
+
+（3）快速入门案例
+public class VarParameter01 {
+	public static void main(String[] args) {
+		HspMethod m = new HspMethod();
+		System.out.println(m.sum(1,3,7,8));
+	}
+}
+class HspMethod {
+	//int...表示接受的是可变参数，类型是int,即接受多个int(0-多)
+	//使用可变参数时，可以当做数组来使用，可以当做数组
+	public int sum(int...nums) {
+		int res = 0;
+		for (int i = 0; i < nums.length; i++) {
+			res = res + nums[i];
+		}
+		return res;
+	}
+}
+
+######7.5.2 可变参数的使用细节
+（1）可变参数的实参个数可以是0-多个
+（2）可变参数的实参可以是数组
+（3）可变参数的本质就是数组
+（4）可变参数可以喝普通类型的参数一起放在形参列表，但必须保证可变参数在最后
+public void f2(String Str, double…nums);//可变参数在后
+（5）一个形参列表只能有一个可变参数
+public void f3(int…num1, double…num2);//错误
+
+######7.5.3 课堂练习
+（1）
+public class VarParameterExecrise {
+	public static void main(String[] args) {
+		HspMethod s = new HspMethod();
+		System.out.println(s.showScore("lisa" ,2.3,5,9));
+	}
+}
+
+class HspMethod {
+	public String showScore(String str, double...scores) {
+		double sum = 0.0;
+		for (int i = 0; i < scores.length; i++) {
+			sum = sum + scores[i];
+		}
+		return str + "的总成绩=" + sum;
+	}
+}
+
+#######7.6 作用域
+######7.6.1 基本概念######非常重要
+（1）Java中，主要的变量是属性（成员变量）和局部变量
+（2）局部变量一般指成员方法中定义的变量cry
+（3）Java中作用域的分类
+全局变量：属性
+局部变量：除了属性之外的变量
+public class VarScope {
+	public static void main(String[] args) {
+	}
+}
+class HspMethod {
+	//全局变量，也就是属性，作用域为整个类体，age
+	//属性定义时，可以直接赋值
+	int age = 10;//指定为10
+	public void cry() {
+		//n name 就是局部变量
+		//n name 作用域在cry方法中
+		int n = 10;
+		String name = "jack";
+		System.out.println("cry 中使用age" + age);
+	}
+}
+
+（4）全局变量可以不赋值，直接使用，因为有默认值，局部变量必须是赋值后才能使用，没有默认值
+
+#######7.6.2 注意事项和细节
+（1）属性和局部变量可以重名，就近原则
+public class VarScopeDetial {
+	public static void main(String[] args) {
+		Person p = new Person();
+		p.say();
+	}
+}
+class Person {
+	String name = "jack";
+	public void say() {
+		String name = "king";//有这句话，输出king,没这话，输出jack
+		System.out.println("say() name=" + name);
+	}
+}
+
+（2）在同一个作用域中，比如在同一个成员方法中，两个局部变量不能重名
+
+（3）属性生命周期长，伴随着对象的创建而创建，伴随着对象的销毁而销毁
+局部变量，生命周期短，伴随代码块的执行而创建，伴随代码块的结束而销毁，即再一次方法调用过程中
+
+（4）作用域范围不同
+全局变量：可以被本类使用，或者其他类使用
+局部：只能在本来中对应的方法中使用
+public class VarScopeDetial {
+	public static void main(String[] args) {
+T t1 = new T();
+		t1.test();
+	}
+}
+class T {
+    public void test () {
+    	Person p1 = new Person();
+    	System.out.println(p1.name);//jack
+    }
+}
+class Person {
+	String name = "jack";
+public void say() {
+		String name = "king";
+	}
+}
+
+（5）修饰符不同
+属性可以加修饰符，局部变量不加修饰符
+
+
+######7.7 构造器/构造方法
+######7.7.1基本介绍
+语法：
+[修饰符]方法名（形参列表） {
+     方法体；
+}
+说明：
+（1）构造器修饰符可以默认，也可以是public ……
+（2）构造器没有返回值
+（3）方法名 和类名字必须一样
+（4）参数列表和成员方法一样的规则
+（5）构造器的调用系统完成
+
+定义：
+是类的一种特殊方法，它主要作用是完成新对象的初始化，有以下特点：
+（1）方法名和类名相同
+（2）没有返回值
+（3）在创建对象时，系统会自动调用该类的构造器完成对对象的初始化
+
+#####7.7.2 快速入门
+public class Constructor01 {
+	public static void main(String[] args) {
+		Person p1 = new Person("Smith",80);
+		System.out.println("p1对象名字=" + p1.name + "年龄=" + p1.age);
+	}
+}
+
+class Person {
+	String name;
+	int age;
+	//构造器:
+	//1.构造器没有返回值，不能写void
+	//2.构造器的名称和类名Person必须一样
+	//3.（String pName,int pAge)是构造器形参列表，规则和成员方法一样
+	public Person(String pName,int pAge) {
+		System.out.println("构造器被调用，完成对象属性初始化");
+		name = pName;
+		age = pAge;
+	}
+}
+
+######7.7.3构造器的使用细节
+（1）一个类可以定义多个不同的构造器，即构造器重载
+public class ConstructorDetial {
+	public static void main(String[] args) {
+		Person p1 = new Person("king",40);
+		Person p2 =new Person("tom");
+		System.out.println();
+	}
+}
+class Person {
+	String name;
+	int age;
+	//构造器
+	public Person(String pName,int pAge) {
+		name = pName;
+		age = pAge;
+    }
+    //第二个构造器，和第一个构成重载
+	public Person(String pName) {
+		name = pName;
+	}
+}
+
+（2）构造器名、类名相同
+（3）构造器没返回值
+（4）构造器是完成对象的初始化，不是创建对象
+（5）创建对象时，系统自动的调用该类的方法构造
+（6）如果程序员没定义构造器，系统会自动给类生成一个默认无参构造器
+比如Person（）{}
+（7）一旦定义自己的构造器，就不能再使用默认无参构造器*****************
+
+#######7.7.4构造方法练习
+（1）public class ConstructorExecrise {
+	public static void main(String[] args) {
+		Person p1 = new Person();
+		System.out.println(p1.name + " " + p1.age);//null 18
+		Person p2 = new Person("jack",50);
+		System.out.println(p2.name + " " + p2.age);
+	}
+}
+class Person {
+	String name;
+	int age;
+	public Person() {
+		age = 18;
+	}
+
+	public Person(String pName,int pAge) {
+		name = pName;
+		age = pAge;
+	}
+}
+
+######7.8 this关键字
+######7.8.1 什么是this
+Java虚拟机会给每个对象分配this，代表当前对象
+class Person {
+	String name;
+	int age;
+public Person(String name,int age) {
+		this.name = name;
+		//this.age是当前对象的属性age*************
+		this.age = age;
+	}
+}
+
+######7.8.2 this 的细节
+（1）this关键字可以用来访问本类的属性、方法、构造器
+（2）this可用来区分当前的属性和局部变量
+（3）访问成员方法的语法： this.方法名（参数列表）
+public class ThisDetial {
+	public static void main(String[] args) {
+		T t1 = new T();
+		t1.f2();
+	}
+}
+
+class T {
+	public void f1() {
+	}
+
+	public void f2() {
+		f1();
+		this.f1();//两个方法都是调用f1方法
+	}
+}
+
+（4）访问构造器语法：this(参数列表），
+注意只能在构造器中使用（即只能在构造器中访问另一个构造器）
+class T {
+	public T() {
+		//这里访问T(String name, int age)，有this放前面
+		this("jack",100);
+		System.out.println("T()构造器");
+	}
+
+	public T(String name, int age) {
+		System.out.println("String name, int age");
+	}
+}
+
+（5）this不能在类定义的外部使用，只能在类定义的方法中使用
+
+########7.8.3 this案例
+public class TestPerson {
+	public static void main(String[] args) {
+		Person p1 = new Person("marry",10);
+		Person p2 = new Person("marry",10);
+		System.out.println(p1.compareTo(p2));
+	}
+}
+
+class Person {
+	String name;
+	int age;
+	public Person(String name,int age) {
+		this.name = name;
+		this.age = age;
+	}
+	//compareTo比较方法
+	public boolean compareTo(Person p) {
+		if(this.name.equals(p.name) && this.age == p.age) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+}
+
+##########本章作业##########
+（1）
+public class Homework01 {
+	public static void main(String[] args) {
+		double[] res = {1.2, 5.6, 4, 8.7, 10.1};
+		A01 a = new A01();
+		System.out.println(a.max(res));
+	}
+}
+class A01 {
+	public double max(double [] arr) {
+		double numMax = arr[0];
+		for (int i = 1; i < arr.length; i++) {
+			if (numMax < arr[i]) {
+				numMax = arr[i];
+			}
+		}
+		return numMax;
+	}
+}
+
+（2）
+public class Homework02 {
+	public static void main(String[] args) {
+		String[] arr = {"jack","marry","lucy","tom"};
+		A02 a = new A02();
+		int index = a.find("lucy",arr);
+		System.out.println("查找的index=" + index);
+	}
+}
+class A02 {
+	public int find(String findStr,String [] arr) {
+		for(int i = 0; i < arr.length; i++) {
+			if(findStr.equals(arr[i])) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+（3）
+public class Homework03 {
+	public static void main(String[] args) {
+		Book book = new Book("天龙八部" , 176);
+		book.updatePrice();
+		book.info();
+	}
+}
+class Book {
+	String name;
+	double price;
+	public Book(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	public void updatePrice() {
+		if (this.price > 150) {
+			this.price = 150;
+		}else if (this.price > 100) {
+			this.price = 100;
+		}
+	}
+	public void info(){
+		System.out.println("书名=" +this.name + "价格=" + this.price);
+	}
+}
+
+（4）
+public class Homework04 {
+	public static void main(String[] args) {
+		A04 a04 = new A04();
+		int [] arr = {1,29,3};
+		a04.copyArr(arr);
+	}
+}
+class A04 {
+	public void copyArr(int[] arr) {
+		int [] res = new int [arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			res[i] = arr[i];
+		}
+		for (int j = 0; j < res.length; j++) {
+			System.out.print(res[j] + " ");
+		}		
+	}
+}
+
+（5）
+public class Homework05 {
+	public static void main(String[] args) {
+		Circle c = new Circle(5);
+		System.out.println(c.per());
+		System.out.println(c.s());
+	}
+}
+class Circle {
+	double r;
+	public Circle(double r) {
+		this.r = r;
+	}
+	public double per() {
+		double per = 3.14*2*r;
+		return per;
+	}
+	public double s() {
+		double s = 3.14*r*r;
+		return s;
+	}
+}
+
+（6）
+public class Homework06 {
+	public static void main(String[] args) {
+		Cale num = new Cale();
+		System.out.println(num.jia(4,2));
+		System.out.println(num.jian(4,2));
+		System.out.println(num.cheng(4,2));
+		Double div = num.chu(4,0);
+		if (div != 0) {
+            System.out.println(div);
+		}
+	}
+}
+class Cale {
+	public double jia(double n1,double n2) {
+		return n1 + n2;
+	}
+	public double jian(double n1,double n2) {
+		return n1 - n2;
+	}
+	public double cheng(double n1,double n2) {
+		return n1 * n2;
+	}
+	public Double chu(double n1,double n2) {
+		if (n2 == 0) {
+			System.out.println("不能为0");
+			return null;
+		}else {
+			return n1 / n2;
+		}
+	}
+}
+
+（7）
+public class Homework07 {
+	public static void main(String[] args) {
+		Dog dog1 = new Dog("小花",10,"白色");
+		dog1.show();
+	}
+}
+class Dog {
+	String name;
+	int age;
+	String color;
+	public Dog(String name, int age, String color) {
+		this.name = name;
+		this.age = age;
+		this.color = color;
+	}
+	public void show() {
+		System.out.println(name);
+		System.out.println(age);
+		System.out.println(color);
+	}
+}
+
+（12）
+public class Homework11 {
+	public static void main(String[] args) {
+	}
+}
+class Employee {
+	String name;
+	char gender;
+	int age;
+	String position;
+	double sal;
+	public Employee(String position, double sal) {
+		this.position = position;
+		this.sal = sal;
+	}
+	public Employee(String name, char gender, int age) {
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+	}
+	public Employee(String name, char gender, int age, String position, double sal) {
+		this(name, gender, age);//用this调用 前面的 构造器
+		this.position = position;
+		this.sal = sal;
+	}
+}
+
+（13）
+public class Homework13 {
+	public static void main(String[] args) {
+		Circle c1 = new Circle(5);
+		PassObject po = new PassObject();
+		po.printAreas(c1,5);
+	}
+}
+class Circle {
+	double radius;
+	public Circle(double radius) {
+		this.radius = radius;
+	} 
+	public double findArea() {
+		return Math.PI*radius*radius;
+	}
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+}
+class PassObject {
+	public void printAreas(Circle c1, int times) {
+		for(int i = 1; i < times; i++) {
+			System.out.print("半径为= " + i);
+			c1.setRadius(i);//修改半径值
+			System.out.print(" " + "圆的面积=" + c1.findArea());
+		    System.out.println();
+		}
+	}
+}
+
+（14）和电脑猜拳游戏
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,405 @@
+^^^^^^^^chapter6 数组
+#########6.1 数组的介绍
+（1）数组可以存放多个同一类型的数据，数组也是数据类型.是引用类型。==>一组同类型的数据
+（2）举例说明
+double [] hens = {3,5,1,3.4,1,50};
+//1.  double [] 表示double类型的数组，数组名为hens
+//2.  {3,5,1,3.4,1,50}表示数组的值/元素，依次表示数组的第几个元素
+//3.  历遍数组得到数组的所有元素的和，使用for
+public class Array {
+	public static void main(String[] args) {
+		double[] hens = {3, 5, 1, 3.4, 2, 50};
+		for (int i = 0; i < 6; i++) {
+			 System.out.println("第" + (i+1) + "个元素" + hens[i]);
+		}
+	}
+}
+//##########我们可以使用hens[下标]来访问数组的元素，下标从0开始编号，例如第一个元素为hens[0];
+//使用for循环就可以循环访问数组的元素
+//使用一个变量 totalWeight将各个元素积累
+//##########可以通过 数组名.length 得到数组的大小/长度 i<hens.length 
+
+#########6.2数组的使用
+6.2.1数组的定义：数据类型 数组名[] = new 数据类型[大小]
+例如： int a [] = new int [5];// 创建一个数组，名字为a ，存放五个int######
+
+6.2.2数组的引用、索引、index
+a数组的第三个数==>a[2]
+
+6.3.3案例分析：循环输入5个成绩，保存到double数组，并输出
+
+import java.util.Scanner;
+public class Array02 {
+	public static void main(String[] args) {
+		double score [] = new double[5];//double[] score 等价
+		Scanner myScanner = new Scanner(System.in);
+		for(int i = 0; i < score.length; i++) {
+			System.out.println("请输入第" + (i+1) + "个元素的值");
+            
+            score[i] = myScanner.nextDouble();//输入成绩
+		}
+		for(int i = 0; i < score.length; i++) {
+			System.out.println("第" + (i+1) + "个元素的值=" + score[i]);
+		}
+
+	}
+}
+
+6.3.4 动态初始化
+（1）先声明数组：int a [] <==> int [] a;
+double scores[];//创建一个数组，此时null
+scores = new double[5]; //分配内存空间
+
+（2）创建数组
+a = new a [5];
+
+6.3.5静态初始化
+（1）知道数组元素有多少
+int a [] = {2,5,6,8,32};
+
+6.3.4 数组的使用细节
+（1）数组是多个 相同 类型的数据的组合
+（2）数组中的元素可以使任何数据类型，包括基本数据类型和引用类型，但不能混用
+（3）数组创建后，没赋值时，有默认值// boolean false ;String null; float double 0.0
+（4）数组下标必须在正常的使用范围,否则报错
+（5）数组属于引用类型，数组型数据是对象
+
+6.3.5 数组应用案例
+（1）
+public class ArrayExecrise {
+	public static void main(String[] args) {
+		char a [] = new char [26];
+		for (int i = 0; i < a.length ; i++) {
+			a[i] = (char)('A' + i);//'A'+i是int，需要强制转换
+		}
+
+		for (int i = 0; i < a.length; i++) {
+			System.out.print(a[i] + " ");
+		}
+	}
+}
+
+（2）
+public class ArrayExecrise02 {
+	public static void main(String[] args) {
+		int [] a = {4, -1, 9, 10, 23};
+		int max = a[0];
+		int b = 0;
+		for (int i = 1; i < a.length; i++) {
+            if (max < a[i]) {
+                max = a[i];
+                b = i;
+            }
+            
+		}
+		System.out.println(max);
+		System.out.println(b);
+	}
+}
+#########6.3 数组的赋值机制
+（1）基本数据类型赋值，这个值就是具体的数据，而不会互相影响
+int n1 =2; int n2 = n1;// 赋值后，n2的变化不会影响n1
+
+（2）数组在默认情况下是引用传递，赋的值是地址，赋值方式为引用传达
+int[] arr1 ={1,2,3};
+int [] arr2 = arr1;//arr1 赋值给 arr2
+arr2 [0] =10; //arr1 的第一个元素也会编程10；#######这就是引用赋值
+
+#########6.4 数组的拷贝
+（1）
+int [] arr1 = {10,10,30};
+int [] arr2 = new int [arr1.length]; 
+for (int i = 0; i <arr1.length; i++) {
+      arr2 [i] arr1[i];
+}
+
+########6.5 数组反转
+（1）案例
+public class ArrayReverse {
+	public static void main(String[] args) {
+		int [] arr = {11, 22, 33, 44, 55, 66};
+		int temp = 0;
+		int len = arr.length;
+		for (int i = 0; i < len/2; i++) {  //找规律得知，arr[0] =arr[5];
+			temp = arr[len-1-i];
+			arr[len-1-i] = arr[i];
+			arr[i] = temp;
+
+		}
+		System.out.println("反转数组");
+		for (int i =0; i < len; i++) {
+			System.out.print(arr[i]+"\t"); //输出数组必须遍历
+		}
+	}
+}
+
+（2）逆序赋值法
+public class ArrayReverse02 {
+	public static void main(String[] args) {
+		int [] arr = {11, 22, 33, 44, 55, 66};
+		int [] arr2 = new int [arr.length];
+		for (int i = arr.length-1; i >= 0; i-- ) {
+			arr2[i] = arr[arr.length - i -1];
+		}
+		for (int i =0; i < arr2.length; i++) {
+			System.out.print(arr2[i]+"\t");
+		}
+	}
+}
+
+######6.6 数组添加
+实现动态的给数组添加元素，实现对数组的扩容
+（1）原始数组int [] arr ={1,2,3}   
+（2）在数组里添加数字4
+（3） 思路，创建元素个数多1的新数组，遍历放入新数组，将4赋值给arrNew[arrNew.length+1],让arr指向arrNew.
+（4）案例
+public class ArrayAdd {
+	public static void main(String[] args) {
+		int [] arr = {1, 2, 3};
+		int [] arrNew = new int [arr.length + 1];
+		for (int i = 0; i < arr.length; i++) {
+			arrNew[i] = arr[i];
+		}
+		arrNew[arrNew.length - 1] = 4;
+		arr = arrNew;
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + "\t");
+		}
+
+	}
+}
+
+案例2 ：不停添加，需要do while循环语句控制
+import java.util.Scanner;
+public class ArrayAdd {
+	public static void main(String[] args) {
+		Scanner myScanner = new Scanner(System.in);
+		 int [] arr = {1, 2, 3};
+		do{
+		    int [] arrNew = new int [arr.length + 1];
+		    for (int i = 0; i < arr.length; i++) {
+			    arrNew[i] = arr[i];
+		    }
+		    System.out.println("请输入你需要添加的元素");
+		    arrNew[arrNew.length - 1] = myScanner.nextInt();
+		    arr = arrNew;
+		    for (int i = 0; i < arr.length; i++) {
+			    System.out.print(arr[i] + "\t");
+			}
+			System.out.println("是否继续添加y/n？");
+			char key = myScanner.next().charAt(0);
+			if(key == 'n') {
+				break;
+			}
+		   
+		}while(true);
+
+	}
+}
+
+#######6.7 数组的排序
+将多个数据，依指定的顺序进行排列的过程
+6.7.1 排序的分类
+（1）内部排序：将需要处理的所有数据都加载到内部储存器进行排序，包括（交换、选择和插入式排序法）
+（2）外部排序：数据量太大，无法全部加载到内存，借助外部储存进行排序。
+（3）冒泡排序：依次比较相邻元素的值，若发现逆序则交换
+
+6.7.2 冒泡排序法
+案例：
+public class Pao {
+	public static void main(String[] args) {
+		int [] arr = {24, 69, 80, 57, 13};
+		int temp = 0;
+		for(int i = 1; i<5; i++) { //排列四次，因此四次循环
+			for(int j = 0; j < arr.length -i; j++) { //依次比较前后两元素，并调换位置
+			    if (arr[j] > arr [j+1]) {
+				    temp = arr[j];
+				    arr[j] = arr[j+1];
+				    arr[j+1] = temp;
+			    }	
+		    }
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + "\t");
+		}
+	}
+}
+
+######6.8 查找
+1.顺序查找
+2.二分查找
+3.案例
+import java.util.Scanner;
+public class SeqSearch {
+	public static void main(String[] args) {
+		String [] names = {"小白", "小金", "小紫", "小青"};
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("请输入名字");
+		String findName = myScanner.next();
+		int index = -1;//经典编程思想，通过索引，看是否进入了循环
+		for(int i = 0; i < names.length; i++) {
+			if(findName.equals(names[i])) { //比较字符串用equals
+				System.out.println("恭喜你找到" + findName);
+				System.out.println("下标为=" + i);
+				index = i;
+				break;
+			}
+		}
+		if(index == -1) {
+			System.out.println("没有找到元素");
+		}
+
+	}
+}
+
+#######6.9  二维数组
+###6.9.1 快速入门案例
+（1）
+public class TwoArray {
+	public static void main(String[] args) {
+		int [][] arr ={ {0, 0, 0, 0, 0},{0, 0, 0, 0, 0},{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},{0, 0, 0, 0, 0}};
+		//从定义形式上看 int [][]
+		//理解为：一维数组是二维数组的每个元素
+		for (int i =0; i < arr.length; i++) {//遍历二维数组的元素（一维数组）
+			for (int j =0; j < arr[i].length; j++) { //遍历作为二维数组元素的一维数组的元素
+				System.out.print(arr[i][j] + "\t");//表示i-1个一维数组的j-1个元素
+			}
+			System.out.println();
+			
+		}
+
+	}
+}
+
+（2）int arr [][] =new int[2][3]; // 新建一个包含两个一维数组，每个一维数组包含3个元素的二维数组
+
+######6.9.2 二维数组的使用
+（1）动态初始化
+int arr [] [] =new int [2] [3]; //声明数组并开空间
+
+OR  int arr [] [];  //先声明
+       arr = new int [2] [3]; //再开空间
+（2）动态初始化——列数不确定
+即二维数组中的每个一维数组，元素个数可以不一样，案例如下：
+public class TwoArray02 {
+	public static void main(String[] args) {
+		int [] [] arr = new int [3][];//列数不确定；
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = new int [i + 1];//给每个一维数组开空间；
+			//如果没给一维数组new ，一维数组都是空的，a[i]=null;
+		    for (int j = 0; j < arr[i].length; j++) {
+		    	arr[i][j] = i + 1;
+		    }
+		}
+
+		//遍历arr输出；
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				System.out.print(arr[i][j] + "\t");
+			}
+			System.out.println();//换行
+		}
+	}
+}
+
+（3）静态初始化；
+定义 类型 组名 [] [] ={{ },{ }, { }}
+比如： int [] [] arr ={{1,1,1},{8,8,9},{100}};
+
+#######6.9.3 二维数组的遍历
+（1）案例，杨辉三角
+public class YangHui {
+	public static void main(String[] args) {
+		int arr [][] = new int [10][];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = new int [i + 1];
+			for (int j = 1; j < arr[i].length -1; j++) {
+				arr[i][j] = arr[i-1][j-1] + arr[i-1][j];
+			}
+            arr[i][arr[i].length -1] = 1;
+            arr[i][0] = 1;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				System.out.print(arr[i][j] + " ");
+			}
+			System.out.println();
+		} 
+	}
+}
+
+######6.9.4 二维数组的使用细节
+（1）二维数组的声明方式：
+int [] [] y <==> int y [] [] <==> int [] y [] ;
+
+（2）二维数组的本质是由多个一维数组组成，它的各个一维数组的长度可以相同，也可以不同
+
+#########6.9.5 二维数组的课堂练习
+（1）Homework04
+import java.util.Scanner;
+public class Homework04 {
+	public static void main(String[] args) {
+		int arr [] = {10, 12, 45, 90};
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("请输入一个数：");
+		int a = myScanner.nextInt();
+		int arrNew [] = new int [arr.length+1];
+		int i = 0;
+		for (; i < arr.length; i++) {
+			if (arr[i] < a ) {
+				arrNew[i] = arr[i];
+			}
+			else {
+				arrNew[i] = a;
+				break;
+			}
+		}
+		for (int j = i + 1; j < arr.length+1; j++) {
+			arrNew[j] = arr [j-1];
+		}
+		arr = arrNew;
+		for (int j = 0; j < arr.length; j++) {
+			System.out.print(arr[j] + " ");
+		}
+
+	}
+}
+
+（2）Homework05
+public class Homework05 {
+	public static void main(String[] args) {
+		int [] arr = new int [10];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = (int)(Math.random()*100) + 1;//随机生成1-100中的数；
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		} 
+
+		System.out.println("######倒序打印#########");
+		for (int i = arr.length -1; i >= 0; i--) {
+			System.out.print(arr[i] + " ");
+		}
+
+	}
+}
+
+（3）写出冒泡排序的代码
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
